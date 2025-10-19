@@ -4,6 +4,7 @@ guiziweb_sylius_ai_platform:
             not_blank: Veuillez sélectionner un canal.
         code:
             not_blank: Veuillez saisir un code.
+            unique: Ce code est déjà utilisé.
         name:
             not_blank: Veuillez saisir un nom.
         platform_configuration:
@@ -13,6 +14,7 @@ guiziweb_sylius_ai_platform:
     platform_configuration:
         code:
             not_blank: Veuillez saisir un code.
+            unique: Ce code est déjà utilisé.
         name:
             not_blank: Veuillez saisir un nom.
         provider:

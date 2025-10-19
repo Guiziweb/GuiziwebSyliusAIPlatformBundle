@@ -16,10 +16,13 @@ use Sylius\Resource\Metadata\Delete;
 use Sylius\Resource\Metadata\Index;
 use Sylius\Resource\Metadata\Show;
 use Sylius\Resource\Metadata\Update;
+use Sylius\Bundle\ApiBundle\Validator\Constraints\Code;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: \Guiziweb\SyliusAIPlatformBundle\Repository\AgentConfigurationRepository::class)]
 #[ORM\Table(name: 'guiziweb_ai_agent_configuration')]
+#[UniqueEntity(fields: ['code'], message: 'guiziweb_sylius_ai_platform.agent_configuration.code.unique')]
 #[AsResource(
     alias: 'guiziweb.agent_configuration',
     section: 'admin',
@@ -47,7 +50,7 @@ class AgentConfiguration implements ResourceInterface
     private ?ChannelInterface $channel = null;
 
     #[ORM\Column(type: 'string', length: 100, unique: true)]
-    #[Assert\NotBlank(message: 'guiziweb_sylius_ai_platform.agent_configuration.code.not_blank')]
+    #[Code]
     private ?string $code = null;
 
     #[ORM\Column(type: 'string', length: 255)]

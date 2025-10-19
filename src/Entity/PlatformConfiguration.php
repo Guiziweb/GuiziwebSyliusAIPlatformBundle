@@ -13,10 +13,13 @@ use Sylius\Resource\Metadata\Delete;
 use Sylius\Resource\Metadata\Index;
 use Sylius\Resource\Metadata\Show;
 use Sylius\Resource\Metadata\Update;
+use Sylius\Bundle\ApiBundle\Validator\Constraints\Code;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: \Guiziweb\SyliusAIPlatformBundle\Repository\PlatformConfigurationRepository::class)]
 #[ORM\Table(name: 'guiziweb_ai_platform_configuration')]
+#[UniqueEntity(fields: ['code'], message: 'guiziweb_sylius_ai_platform.platform_configuration.code.unique')]
 #[AsResource(
     alias: 'guiziweb.platform_configuration',
     section: 'admin',
@@ -39,7 +42,7 @@ class PlatformConfiguration implements ResourceInterface
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 100, unique: true)]
-    #[Assert\NotBlank(message: 'guiziweb_sylius_ai_platform.platform_configuration.code.not_blank')]
+    #[Code]
     private ?string $code = null;
 
     #[ORM\Column(type: 'string', length: 255)]
