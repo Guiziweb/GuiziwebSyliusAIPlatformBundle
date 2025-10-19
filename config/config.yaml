@@ -3,18 +3,3 @@
 imports:
     - { resource: "twig_hooks/**/*.yaml" }
     - { resource: "grids/**/*.yaml" }
-
-sylius_resource:
-    resources:
-        guiziweb.agent_configuration:
-            driver: doctrine/orm
-            classes:
-                model: Guiziweb\SyliusAIPlatformBundle\Entity\AgentConfiguration
-                repository: Guiziweb\SyliusAIPlatformBundle\Repository\AgentConfigurationRepository
-                form: Guiziweb\SyliusAIPlatformBundle\Form\Type\AgentConfigurationType
-        guiziweb.platform_configuration:
-            driver: doctrine/orm
-            classes:
-                model: Guiziweb\SyliusAIPlatformBundle\Entity\PlatformConfiguration
-                repository: Guiziweb\SyliusAIPlatformBundle\Repository\PlatformConfigurationRepository
-                form: Guiziweb\SyliusAIPlatformBundle\Form\Type\PlatformConfigurationType

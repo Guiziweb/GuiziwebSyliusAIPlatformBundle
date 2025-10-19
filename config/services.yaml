@@ -14,3 +14,8 @@ services:
     Guiziweb\SyliusAIPlatformBundle\Form\EventListener\PopulateAgentToolsSubscriber:
         arguments:
             $availableTools: !tagged_iterator guiziweb.ai_tool
+
+    # Factories with tagged iterator for tools
+    Guiziweb\SyliusAIPlatformBundle\Factory\AgentFactory:
+        arguments:
+            $tools: !tagged_iterator guiziweb.ai_tool
