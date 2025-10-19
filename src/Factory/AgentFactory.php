@@ -73,7 +73,12 @@ final class AgentFactory
         }
 
         // Add agent processor for tool execution (both input and output)
-        $agentProcessor = new AgentProcessor($toolbox);
+        // keepToolMessages: true ensures ToolCallMessage and ToolCallResultMessage are saved to conversation history
+        $agentProcessor = new AgentProcessor(
+            toolbox: $toolbox,
+            eventDispatcher: $this->eventDispatcher,
+            keepToolMessages: true,
+        );
         $inputProcessors[] = $agentProcessor;
         $outputProcessors[] = $agentProcessor;
 
