@@ -16,7 +16,7 @@ use Sylius\Resource\Metadata\Delete;
 use Sylius\Resource\Metadata\Index;
 use Sylius\Resource\Metadata\Show;
 use Sylius\Resource\Metadata\Update;
-use Sylius\Bundle\ApiBundle\Validator\Constraints\Code;
+use Guiziweb\SyliusAIPlatformBundle\Validator\Constraints\Code;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
