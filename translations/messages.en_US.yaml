@@ -1,0 +1,55 @@
+sylius:
+    menu:
+        admin:
+            main:
+                configuration:
+                    ai: AI Configuration
+
+guiziweb:
+    ui:
+        platform_configurations: Platform Configurations
+        platform_configuration: Platform Configuration
+        agent_configurations: Agent Configurations
+        agent_configuration: Agent Configuration
+
+guiziweb_sylius_ai_platform:
+    menu:
+        admin:
+            platform_configurations: Platform Configurations
+            agent_configurations: Agent Configurations
+
+    form:
+        platform_configuration:
+            code: Code
+            name: Name
+            enabled: Enabled
+            provider: AI Provider
+            select_provider: Select a provider
+            api_key: API Key
+
+        agent_configuration:
+            channel: Channel
+            code: Code
+            name: Name
+            enabled: Enabled
+            platform_configuration: Platform Configuration
+            select_platform: Select a platform
+            select_platform_first: Please select a platform first
+            model: Model
+            select_model: Select a model
+            system_prompt: System Prompt
+            tools: Tools
+
+        agent_tool:
+            enabled: Enabled
+
+    ui:
+        platform_configurations: Platform Configurations
+        platform_configuration: Platform Configuration
+        agent_configurations: Agent Configurations
+        agent_configuration: Agent Configuration
+        channel: Channel
+        code: Code
+        name: Name
+        model: Model
+        provider: Provider

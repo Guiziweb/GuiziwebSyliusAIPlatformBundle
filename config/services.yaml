@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Guiziweb\SyliusAIPlatformBundle\:
+        resource: '../src/'
+        exclude:
+            - '../src/Entity/'
+            - '../src/Migrations/'
+            - '../src/DependencyInjection/'
+
+    # Only service that needs explicit config for tagged iterator
+    Guiziweb\SyliusAIPlatformBundle\Form\EventListener\PopulateAgentToolsSubscriber:
+        arguments:
+            $availableTools: !tagged_iterator guiziweb.ai_tool

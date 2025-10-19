@@ -1,0 +1,22 @@
+{% block _agent_configuration_agentTools_widget %}
+    {% if form.children|length == 0 %}
+        <div class="alert alert-info">
+            Aucun tool disponible
+        </div>
+    {% else %}
+        {{ block('collection_widget') }}
+    {% endif %}
+{% endblock %}
+
+{% block _agent_configuration_agentTools_entry_widget %}
+    {% set tool_name = form.children.toolName.vars.value|tool_short_name %}
+    {% set tool_description = form.children.toolName.vars.value|tool_description %}
+
+    <div class="mb-3">
+        {{ form_row(form.enabled, {
+            'label': tool_name,
+            'help': tool_description
+        }) }}
+        {{ form_widget(form.toolName) }}
+    </div>
+{% endblock %}

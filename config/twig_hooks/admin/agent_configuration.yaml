@@ -1,0 +1,54 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.agent_configuration.create.content':
+            form:
+                component: 'guiziweb:agent_configuration:form'
+                props:
+                    resource: '@=_context.resource'
+                    form: '@=_context.form'
+                    template: '@SyliusAdmin/shared/crud/common/content/form.html.twig'
+                configuration:
+                    render_rest: false
+                priority: 100
+
+        'sylius_admin.agent_configuration.update.content':
+            form:
+                component: 'guiziweb:agent_configuration:form'
+                props:
+                    resource: '@=_context.resource'
+                    form: '@=_context.form'
+                    template: '@SyliusAdmin/shared/crud/common/content/form.html.twig'
+                configuration:
+                    render_rest: false
+                    method: PUT
+                priority: 100
+
+        'sylius_admin.agent_configuration.show.content':
+            sections:
+                template: '@GuiziwebSyliusAIPlatform/admin/agent_configuration/show/content/sections.html.twig'
+                priority: 0
+
+        'sylius_admin.agent_configuration.show.content.sections':
+            general:
+                template: '@GuiziwebSyliusAIPlatform/admin/agent_configuration/show/content/sections/general.html.twig'
+                priority: 0
+
+        'sylius_admin.agent_configuration.show.content.sections.general':
+            code:
+                template: '@GuiziwebSyliusAIPlatform/admin/agent_configuration/show/content/sections/general/code.html.twig'
+                priority: 700
+            name:
+                template: '@GuiziwebSyliusAIPlatform/admin/agent_configuration/show/content/sections/general/name.html.twig'
+                priority: 600
+            channel:
+                template: '@GuiziwebSyliusAIPlatform/admin/agent_configuration/show/content/sections/general/channel.html.twig'
+                priority: 500
+            platform_configuration:
+                template: '@GuiziwebSyliusAIPlatform/admin/agent_configuration/show/content/sections/general/platform_configuration.html.twig'
+                priority: 400
+            model:
+                template: '@GuiziwebSyliusAIPlatform/admin/agent_configuration/show/content/sections/general/model.html.twig'
+                priority: 300
+            enabled:
+                template: '@GuiziwebSyliusAIPlatform/admin/agent_configuration/show/content/sections/general/enabled.html.twig'
+                priority: 200

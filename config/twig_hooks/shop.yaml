@@ -1,0 +1,3 @@
+sylius_twig_hooks:
+    hooks:
+        # Define your shop twig hooks here

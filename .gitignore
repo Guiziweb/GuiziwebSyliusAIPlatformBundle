@@ -1,0 +1,23 @@
+/vendor/
+/var/
+/node_modules/
+/composer.lock
+
+/etc/build/*
+!/etc/build/.gitignore
+
+/.phpunit.result.cache
+/behat.yml
+/phpunit.xml
+/compose.override.yml
+
+# Symfony CLI https://symfony.com/doc/current/setup/symfony_server.html#different-php-settings-per-project
+/.php-version
+/php.ini
+
+# Test Application
+/tests/TestApplication/.env.local
+/tests/TestApplication/.env.*.local
+
+# IDE
+/.idea/

@@ -1,0 +1,25 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.platform_configuration.show.content':
+            sections:
+                template: '@GuiziwebSyliusAIPlatform/admin/platform_configuration/show/content/sections.html.twig'
+                priority: 0
+
+        'sylius_admin.platform_configuration.show.content.sections':
+            general:
+                template: '@GuiziwebSyliusAIPlatform/admin/platform_configuration/show/content/sections/general.html.twig'
+                priority: 0
+
+        'sylius_admin.platform_configuration.show.content.sections.general':
+            code:
+                template: '@GuiziwebSyliusAIPlatform/admin/platform_configuration/show/content/sections/general/code.html.twig'
+                priority: 600
+            name:
+                template: '@GuiziwebSyliusAIPlatform/admin/platform_configuration/show/content/sections/general/name.html.twig'
+                priority: 500
+            provider:
+                template: '@GuiziwebSyliusAIPlatform/admin/platform_configuration/show/content/sections/general/provider.html.twig'
+                priority: 400
+            enabled:
+                template: '@GuiziwebSyliusAIPlatform/admin/platform_configuration/show/content/sections/general/enabled.html.twig'
+                priority: 300

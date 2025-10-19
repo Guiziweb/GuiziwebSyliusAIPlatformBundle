@@ -1,0 +1,36 @@
+sylius_grid:
+    grids:
+        guiziweb_admin_agent_configuration:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: Guiziweb\SyliusAIPlatformBundle\Entity\AgentConfiguration
+            fields:
+                channel:
+                    type: twig
+                    label: guiziweb_sylius_ai_platform.ui.channel
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/channel.html.twig"
+                code:
+                    type: string
+                    label: guiziweb_sylius_ai_platform.ui.code
+                name:
+                    type: string
+                    label: guiziweb_sylius_ai_platform.ui.name
+                model:
+                    type: string
+                    label: guiziweb_sylius_ai_platform.ui.model
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/boolean.html.twig"
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
