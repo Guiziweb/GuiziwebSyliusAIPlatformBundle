@@ -16,6 +16,7 @@ use Sylius\Resource\Metadata\Delete;
 use Sylius\Resource\Metadata\Index;
 use Sylius\Resource\Metadata\Show;
 use Sylius\Resource\Metadata\Update;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: \Guiziweb\SyliusAIPlatformBundle\Repository\AgentConfigurationRepository::class)]
 #[ORM\Table(name: 'guiziweb_ai_agent_configuration')]
@@ -42,12 +43,15 @@ class AgentConfiguration implements ResourceInterface
 
     #[ORM\ManyToOne(targetEntity: ChannelInterface::class)]
     #[ORM\JoinColumn(name: 'channel_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[Assert\NotNull(message: 'guiziweb_sylius_ai_platform.agent_configuration.channel.not_blank')]
     private ?ChannelInterface $channel = null;
 
     #[ORM\Column(type: 'string', length: 100, unique: true)]
+    #[Assert\NotBlank(message: 'guiziweb_sylius_ai_platform.agent_configuration.code.not_blank')]
     private ?string $code = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: 'guiziweb_sylius_ai_platform.agent_configuration.name.not_blank')]
     private ?string $name = null;
 
     #[ORM\Column(type: 'boolean')]
@@ -55,9 +59,11 @@ class AgentConfiguration implements ResourceInterface
 
     #[ORM\ManyToOne(targetEntity: PlatformConfiguration::class)]
     #[ORM\JoinColumn(name: 'platform_configuration_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[Assert\NotNull(message: 'guiziweb_sylius_ai_platform.agent_configuration.platform_configuration.not_blank')]
     private ?PlatformConfiguration $platformConfiguration = null;
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    #[Assert\NotBlank(message: 'guiziweb_sylius_ai_platform.agent_configuration.model.not_blank')]
     private ?string $model = null;
 
     #[ORM\Column(type: 'text', nullable: true)]

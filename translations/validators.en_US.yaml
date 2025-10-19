@@ -1,0 +1,21 @@
+guiziweb_sylius_ai_platform:
+    agent_configuration:
+        channel:
+            not_blank: Please select a channel.
+        code:
+            not_blank: Please enter a code.
+        name:
+            not_blank: Please enter a name.
+        platform_configuration:
+            not_blank: Please select a platform.
+        model:
+            not_blank: Please select a model.
+    platform_configuration:
+        code:
+            not_blank: Please enter a code.
+        name:
+            not_blank: Please enter a name.
+        provider:
+            not_blank: Please select a provider.
+        api_key:
+            not_blank: Please enter an API key.
