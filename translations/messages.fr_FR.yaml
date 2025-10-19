@@ -11,6 +11,9 @@ guiziweb:
         platform_configuration: Configuration de plateforme
         agent_configurations: Configurations des agents
         agent_configuration: Configuration d'agent
+        agent: Agent
+        channel: Canal
+        enabled: Activé
 
 guiziweb_sylius_ai_platform:
     menu:
