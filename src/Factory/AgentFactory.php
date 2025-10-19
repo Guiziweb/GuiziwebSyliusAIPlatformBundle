@@ -10,6 +10,7 @@ use Symfony\AI\Agent\AgentInterface;
 use Symfony\AI\Agent\InputProcessor\SystemPromptInputProcessor;
 use Symfony\AI\Agent\Toolbox\AgentProcessor;
 use Symfony\AI\Agent\Toolbox\Toolbox;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class AgentFactory
 {
@@ -18,6 +19,7 @@ final class AgentFactory
      */
     public function __construct(
         private readonly PlatformFactory $platformFactory,
+        private readonly EventDispatcherInterface $eventDispatcher,
         private readonly iterable $tools = [],
     ) {
     }
@@ -57,7 +59,10 @@ final class AgentFactory
             }
         }
 
-        $toolbox = new Toolbox($filteredTools);
+        $toolbox = new Toolbox(
+            $filteredTools,
+            eventDispatcher: $this->eventDispatcher,
+        );
         $inputProcessors = [];
         $outputProcessors = [];
 
