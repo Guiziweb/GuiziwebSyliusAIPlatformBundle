@@ -8,13 +8,12 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Guiziweb\SyliusAIPlatformBundle\Entity\AgentConfiguration;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\ResourceRepositoryTrait;
-use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 
 /**
  * @extends ServiceEntityRepository<AgentConfiguration>
- * @implements RepositoryInterface<AgentConfiguration>
+ * @implements AgentConfigurationRepositoryInterface<AgentConfiguration>
  */
-final class AgentConfigurationRepository extends ServiceEntityRepository implements RepositoryInterface
+final class AgentConfigurationRepository extends ServiceEntityRepository implements AgentConfigurationRepositoryInterface
 {
     use ResourceRepositoryTrait;
 
