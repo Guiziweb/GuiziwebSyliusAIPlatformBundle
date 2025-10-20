@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Guiziweb\SyliusAIPlatformBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Guiziweb\SyliusAIPlatformBundle\Form\Type\PlatformConfigurationType;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Resource\Metadata\AsResource;
@@ -17,8 +16,6 @@ use Guiziweb\SyliusAIPlatformBundle\Validator\Constraints\Code;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: \Guiziweb\SyliusAIPlatformBundle\Repository\PlatformConfigurationRepository::class)]
-#[ORM\Table(name: 'guiziweb_ai_platform_configuration')]
 #[UniqueEntity(fields: ['code'], message: 'guiziweb_sylius_ai_platform.platform_configuration.code.unique')]
 #[AsResource(
     alias: 'guiziweb.platform_configuration',
@@ -36,31 +33,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 class PlatformConfiguration implements ResourceInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 100, unique: true)]
     #[Code]
     private ?string $code = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(message: 'guiziweb_sylius_ai_platform.platform_configuration.name.not_blank')]
     private ?string $name = null;
 
-    #[ORM\Column(type: 'boolean')]
     private bool $enabled = false;
 
-    #[ORM\Column(type: 'string', length: 50)]
     #[Assert\NotBlank(message: 'guiziweb_sylius_ai_platform.platform_configuration.provider.not_blank')]
     private ?string $provider = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Assert\NotBlank(message: 'guiziweb_sylius_ai_platform.platform_configuration.api_key.not_blank')]
     private ?string $apiKey = null;
 
-    #[ORM\Column(type: 'json', nullable: true)]
     private ?array $settings = null;
 
     public function getId(): ?int

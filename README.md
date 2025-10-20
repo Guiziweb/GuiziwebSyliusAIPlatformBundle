@@ -90,15 +90,15 @@ return [
 Add the bundle routes to `config/routes.yaml`:
 
 ```yaml
-guiziweb_sylius_ai_platform_admin:
-    resource: "@GuiziwebSyliusAIPlatformBundle/config/routes/admin.yaml"
+guiziweb_sylius_ai_platform:
+    resource: "@GuiziwebSyliusAIPlatformBundle/config/routes.yaml"
 ```
 
 **For Sylius plugins:** Add to `tests/TestApplication/config/routes.yaml`:
 
 ```yaml
-guiziweb_sylius_ai_platform_admin:
-    resource: "@GuiziwebSyliusAIPlatformBundle/config/routes/admin.yaml"
+guiziweb_sylius_ai_platform:
+    resource: "@GuiziwebSyliusAIPlatformBundle/config/routes.yaml"
 
 # Your plugin routes here
 ```
@@ -120,31 +120,13 @@ imports:
     # Your plugin imports here
 ```
 
-### 5. Configure Doctrine mappings (for plugins only)
-
-If installing in a **Sylius plugin**, add the Doctrine mapping in `tests/TestApplication/config/config.yaml`:
-
-```yaml
-doctrine:
-    orm:
-        entity_managers:
-            default:
-                mappings:
-                    GuiziwebSyliusAIPlatformBundle:
-                        is_bundle: false
-                        type: attribute
-                        dir: '%kernel.project_dir%/../../../vendor/guiziweb/sylius-ai-platform-bundle/src/Entity'
-                        prefix: Guiziweb\SyliusAIPlatformBundle\Entity
-                    # Your plugin mappings here
-```
-
-### 6. Run database migrations
+### 5. Run database migrations
 
 ```bash
 php bin/console doctrine:migrations:migrate -n
 ```
 
-### 7. Clear cache
+### 6. Clear cache
 
 ```bash
 php bin/console cache:clear

@@ -4,26 +4,16 @@ declare(strict_types=1);
 
 namespace Guiziweb\SyliusAIPlatformBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-#[ORM\Entity]
-#[ORM\Table(name: 'guiziweb_ai_agent_tool')]
 class AgentTool implements ResourceInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: AgentConfiguration::class, inversedBy: 'agentTools')]
-    #[ORM\JoinColumn(name: 'agent_configuration_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private ?AgentConfiguration $agentConfiguration = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
     private ?string $toolName = null;
 
-    #[ORM\Column(type: 'boolean')]
     private bool $enabled = true;
 
     public function getId(): ?int

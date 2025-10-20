@@ -1,5 +1,2 @@
-guiziweb_sylius_ai_platform_admin:
-    resource: "@GuiziwebSyliusAIPlatformBundle/config/routes/admin.yaml"
-
-guiziweb_sylius_ai_platform_shop:
-    resource: "@GuiziwebSyliusAIPlatformBundle/config/routes/shop.yaml"
+guiziweb_sylius_ai_platform:
+    resource: "@GuiziwebSyliusAIPlatformBundle/config/routes.yaml"
