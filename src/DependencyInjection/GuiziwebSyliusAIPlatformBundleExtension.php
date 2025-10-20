@@ -42,7 +42,7 @@ final class GuiziwebSyliusAIPlatformBundleExtension extends AbstractResourceExte
 
     protected function getMigrationsNamespace(): string
     {
-        return 'DoctrineMigrations';
+        return 'Guiziweb\SyliusAIPlatformBundle\Migrations';
     }
 
     protected function getMigrationsDirectory(): string
