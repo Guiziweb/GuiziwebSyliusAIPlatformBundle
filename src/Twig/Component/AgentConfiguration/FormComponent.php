@@ -18,7 +18,7 @@ use Symfony\UX\LiveComponent\Attribute\PreReRender;
 /**
  * @use ResourceFormComponentTrait<AgentConfiguration>
  */
-#[AsLiveComponent(name: 'guiziweb:agent_configuration:form', template: '@GuiziwebSyliusAIPlatform/components/AgentConfiguration/Form.html.twig')]
+#[AsLiveComponent(name: 'guiziweb:agent_configuration:form', template: '@GuiziwebSyliusAIPlatform/components/AgentConfiguration/Form.html.twig', route: 'sylius_admin_live_component')]
 #[AutoconfigureTag('sylius.live_component.admin', ['key' => 'guiziweb:agent_configuration:form'])]
 final class FormComponent
 {
