@@ -53,84 +53,81 @@ The actual communication with these providers is handled by Symfony AI Platform.
 
 ## Installation
 
-### 1. Install the bundle via Composer
+### Quick Installation (Recommended)
+
+The bundle uses **Symfony Flex** for automatic configuration:
 
 ```bash
-composer require guiziweb/sylius-ai-platform-bundle:dev-main
+composer require guiziweb/sylius-ai-platform-bundle
 ```
 
-**Note:** Until a stable release is tagged, use `dev-main` to install the latest version.
+This will automatically:
+- Register the bundle in `config/bundles.php`
+- Create configuration file in `config/packages/guiziweb_sylius_ai_platform.yaml`
+- Create routes file in `config/routes/guiziweb_sylius_ai_platform.yaml`
 
-### 2. Enable the bundle
+### Configuration Requirements
 
-Add the bundle to `config/bundles.php`:
+To enable Symfony Flex recipes from this repository, add the custom recipe endpoint to your `composer.json`:
 
-```php
-<?php
-
-return [
-    // ... other bundles
-    Guiziweb\SyliusAIPlatformBundle\GuiziwebSyliusAIPlatformBundle::class => ['all' => true],
-];
+```json
+{
+    "extra": {
+        "symfony": {
+            "allow-contrib": true,
+            "endpoint": [
+                "https://api.github.com/repos/Guiziweb/SyliusRecipes/contents/index.json?ref=flex/main",
+                "https://api.github.com/repos/Sylius/SyliusRecipes/contents/index.json?ref=flex/main",
+                "flex://defaults"
+            ]
+        }
+    }
+}
 ```
 
-**For Sylius plugins:** Add it to `tests/TestApplication/config/bundles.php` (before your own plugin):
+**Note:** You also need to set `"minimum-stability": "dev"` and `"prefer-stable": true` in your `composer.json` until a stable release is tagged.
 
-```php
-<?php
+### Post-Installation
 
-return [
-    Guiziweb\SyliusAIPlatformBundle\GuiziwebSyliusAIPlatformBundle::class => ['all' => true],
-    // Your plugin class here
-];
-```
-
-### 3. Import routes
-
-Add the bundle routes to `config/routes.yaml`:
-
-```yaml
-guiziweb_sylius_ai_platform:
-    resource: "@GuiziwebSyliusAIPlatformBundle/config/routes.yaml"
-```
-
-**For Sylius plugins:** Add to `tests/TestApplication/config/routes.yaml`:
-
-```yaml
-guiziweb_sylius_ai_platform:
-    resource: "@GuiziwebSyliusAIPlatformBundle/config/routes.yaml"
-
-# Your plugin routes here
-```
-
-### 4. Import configuration
-
-Create `config/packages/guiziweb_sylius_ai_platform.yaml`:
-
-```yaml
-imports:
-    - { resource: "@GuiziwebSyliusAIPlatformBundle/config/config.yaml" }
-```
-
-**For Sylius plugins:** Add the import to `tests/TestApplication/config/config.yaml`:
-
-```yaml
-imports:
-    - { resource: "@GuiziwebSyliusAIPlatformBundle/config/config.yaml" }
-    # Your plugin imports here
-```
-
-### 5. Run database migrations
+After installation, run the database migrations:
 
 ```bash
 php bin/console doctrine:migrations:migrate -n
 ```
 
-### 6. Clear cache
+### Manual Installation (Alternative)
 
-```bash
-php bin/console cache:clear
-```
+If you prefer manual installation or are setting up a Sylius plugin test application:
+
+1. **Install via Composer:**
+   ```bash
+   composer require guiziweb/sylius-ai-platform-bundle:dev-main
+   ```
+
+2. **Enable the bundle** in `config/bundles.php`:
+   ```php
+   return [
+       // ... other bundles
+       Guiziweb\SyliusAIPlatformBundle\GuiziwebSyliusAIPlatformBundle::class => ['all' => true],
+   ];
+   ```
+
+3. **Import routes** in `config/routes.yaml`:
+   ```yaml
+   guiziweb_sylius_ai_platform:
+       resource: "@GuiziwebSyliusAIPlatformBundle/config/routes.yaml"
+   ```
+
+4. **Import configuration** - create `config/packages/guiziweb_sylius_ai_platform.yaml`:
+   ```yaml
+   imports:
+       - { resource: "@GuiziwebSyliusAIPlatformBundle/config/config.yaml" }
+   ```
+
+5. **Run migrations:**
+   ```bash
+   php bin/console doctrine:migrations:migrate -n
+   ```
 
 ## Configuration
 
