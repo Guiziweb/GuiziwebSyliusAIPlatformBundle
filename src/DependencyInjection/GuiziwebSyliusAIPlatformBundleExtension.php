@@ -21,6 +21,10 @@ final class GuiziwebSyliusAIPlatformBundleExtension extends AbstractResourceExte
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
         $loader->load('services.yaml');
+
+        // Auto-tag tools implementing ToolInterface
+        $container->registerForAutoconfiguration(\Guiziweb\SyliusAIPlatformBundle\Tool\ToolInterface::class)
+            ->addTag('guiziweb.ai_tool');
     }
 
     public function prepend(ContainerBuilder $container): void

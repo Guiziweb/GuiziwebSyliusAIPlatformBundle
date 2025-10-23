@@ -1,7 +1,7 @@
 {
     "name": "guiziweb/sylius-ai-platform-bundle",
     "type": "sylius-plugin",
-    "description": "AI Platform infrastructure bundle for Sylius - Manage AI platforms, agents and configurations",
+    "description": "Sylius admin bundle providing a complete back-office interface for Symfony AI Platform. Configure AI providers, create channel-specific agents with custom prompts and tools, manage credentials for 23+ platforms including OpenAI, Anthropic, Gemini, Mistral, and local models (Ollama, LM Studio).",
     "keywords": [
         "sylius",
         "sylius-plugin",
