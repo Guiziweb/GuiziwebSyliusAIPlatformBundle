@@ -9,6 +9,7 @@ use Symfony\AI\Agent\Agent;
 use Symfony\AI\Agent\AgentInterface;
 use Symfony\AI\Agent\InputProcessor\SystemPromptInputProcessor;
 use Symfony\AI\Agent\Toolbox\AgentProcessor;
+use Symfony\AI\Agent\Toolbox\FaultTolerantToolbox;
 use Symfony\AI\Agent\Toolbox\Toolbox;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -63,19 +64,23 @@ final class AgentFactory
             $filteredTools,
             eventDispatcher: $this->eventDispatcher,
         );
+
+        // Wrap with FaultTolerantToolbox to gracefully handle tool exceptions
+        $faultTolerantToolbox = new FaultTolerantToolbox($toolbox);
+
         $inputProcessors = [];
         $outputProcessors = [];
 
         // Add system prompt processor if configured
         $systemPrompt = $agentConfiguration->getSystemPrompt();
         if (null !== $systemPrompt && '' !== trim($systemPrompt)) {
-            $inputProcessors[] = new SystemPromptInputProcessor($systemPrompt, $toolbox);
+            $inputProcessors[] = new SystemPromptInputProcessor($systemPrompt, $faultTolerantToolbox);
         }
 
         // Add agent processor for tool execution (both input and output)
         // keepToolMessages: true ensures ToolCallMessage and ToolCallResultMessage are saved to conversation history
         $agentProcessor = new AgentProcessor(
-            toolbox: $toolbox,
+            toolbox: $faultTolerantToolbox,
             eventDispatcher: $this->eventDispatcher,
             keepToolMessages: true,
         );
