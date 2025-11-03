@@ -48,7 +48,7 @@ The actual communication with these providers is handled by Symfony AI Platform.
 
 - PHP 8.2 or higher
 - Sylius 2.0 or higher
-- Symfony 6.4 or higher
+- Symfony 7.3 or higher
 - **Symfony AI Platform** (installed automatically as a dependency)
 
 ## Installation

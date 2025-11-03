@@ -14,7 +14,8 @@
         "php": "^8.2",
         "sylius/sylius": "^2.0",
         "symfony/ai-platform": "@dev",
-        "symfony/ai-agent": "@dev"
+        "symfony/ai-agent": "@dev",
+        "symfony/framework-bundle": "^7.3"
     },
     "require-dev": {
         "behat/behat": "^3.16",
