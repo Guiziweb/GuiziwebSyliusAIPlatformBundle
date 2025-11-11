@@ -21,3 +21,15 @@ guiziweb_sylius_ai_platform:
             not_blank: Please select a provider.
         api_key:
             not_blank: Please enter an API key.
+    vector_store_configuration:
+        channel:
+            not_blank: Please select a channel.
+        code:
+            not_blank: Please enter a code.
+            unique: This code is already in use.
+        name:
+            not_blank: Please enter a name.
+        platform_configuration:
+            not_null: Please select a platform.
+        model:
+            not_blank: Please select a model.

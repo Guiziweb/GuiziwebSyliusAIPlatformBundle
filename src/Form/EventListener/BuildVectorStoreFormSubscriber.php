@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Guiziweb\SyliusAIPlatformBundle\Form\EventListener;
 
-use Guiziweb\SyliusAIPlatformBundle\Entity\AgentConfiguration;
 use Guiziweb\SyliusAIPlatformBundle\Entity\PlatformConfiguration;
+use Guiziweb\SyliusAIPlatformBundle\Entity\VectorStoreConfiguration;
 use Guiziweb\SyliusAIPlatformBundle\Enum\AiProvider;
 
-final readonly class BuildAgentFormSubscriber extends AbstractBuildModelFieldSubscriber
+final readonly class BuildVectorStoreFormSubscriber extends AbstractBuildModelFieldSubscriber
 {
     protected function getPlatformConfiguration(mixed $data): ?PlatformConfiguration
     {
-        if (!$data instanceof AgentConfiguration) {
+        if (!$data instanceof VectorStoreConfiguration) {
             return null;
         }
 
@@ -21,7 +21,7 @@ final readonly class BuildAgentFormSubscriber extends AbstractBuildModelFieldSub
 
     protected function getModelValue(mixed $data): ?string
     {
-        if (!$data instanceof AgentConfiguration) {
+        if (!$data instanceof VectorStoreConfiguration) {
             return null;
         }
 
@@ -30,11 +30,11 @@ final readonly class BuildAgentFormSubscriber extends AbstractBuildModelFieldSub
 
     protected function getModelChoices(AiProvider $provider): array
     {
-        return $this->providerRegistry->getLLMModelChoicesForProvider($provider);
+        return $this->providerRegistry->getEmbeddingModelChoicesForProvider($provider);
     }
 
     protected function getTranslationPrefix(): string
     {
-        return 'guiziweb_sylius_ai_platform.form.agent_configuration';
+        return 'guiziweb_sylius_ai_platform.form.vector_store_configuration';
     }
 }

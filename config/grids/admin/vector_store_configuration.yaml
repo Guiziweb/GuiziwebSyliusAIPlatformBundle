@@ -1,0 +1,55 @@
+sylius_grid:
+    grids:
+        guiziweb_admin_vector_store_configuration:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: Guiziweb\SyliusAIPlatformBundle\Entity\VectorStoreConfiguration
+            fields:
+                channel:
+                    type: twig
+                    label: guiziweb_sylius_ai_platform.ui.channel
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/channel.html.twig"
+                code:
+                    type: string
+                    label: guiziweb_sylius_ai_platform.ui.code
+                name:
+                    type: string
+                    label: guiziweb_sylius_ai_platform.ui.name
+                distanceMetric:
+                    type: string
+                    label: guiziweb_sylius_ai_platform.form.vector_store_configuration.distance_metric
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusAdmin/shared/grid/field/boolean.html.twig"
+            filters:
+                search:
+                    type: string
+                    label: sylius.ui.search
+                    options:
+                        fields: [code, name]
+                channel:
+                    type: entity
+                    label: sylius.ui.channel
+                    form_options:
+                        class: Sylius\Component\Core\Model\Channel
+                distanceMetric:
+                    type: string
+                    label: guiziweb_sylius_ai_platform.form.vector_store_configuration.distance_metric
+                enabled:
+                    type: boolean
+                    label: sylius.ui.enabled
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    show:
+                        type: show
+                    update:
+                        type: update
+                    delete:
+                        type: delete

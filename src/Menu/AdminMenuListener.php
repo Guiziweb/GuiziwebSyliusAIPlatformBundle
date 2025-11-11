@@ -32,5 +32,12 @@ final class AdminMenuListener
             ])
             ->setLabel('guiziweb_sylius_ai_platform.menu.admin.agent_configurations')
             ->setLabelAttribute('icon', 'tabler:brain');
+
+        $aiSection
+            ->addChild('vector_stores', [
+                'route' => 'guiziweb_admin_vector_store_configuration_index',
+            ])
+            ->setLabel('guiziweb_sylius_ai_platform.menu.admin.vector_store_configurations')
+            ->setLabelAttribute('icon', 'tabler:database');
     }
 }

@@ -15,6 +15,7 @@
         "sylius/sylius": "^2.0",
         "symfony/ai-platform": "@dev",
         "symfony/ai-agent": "@dev",
+        "symfony/ai-store": "@dev",
         "symfony/framework-bundle": "^7.3"
     },
     "require-dev": {

@@ -11,6 +11,8 @@ guiziweb:
         platform_configuration: Platform Configuration
         agent_configurations: Agent Configurations
         agent_configuration: Agent Configuration
+        vector_store_configurations: Vector Store Configurations
+        vector_store_configuration: Vector Store Configuration
         agent: Agent
         channel: Channel
         enabled: Enabled
@@ -20,6 +22,7 @@ guiziweb_sylius_ai_platform:
         admin:
             platform_configurations: Platform Configurations
             agent_configurations: Agent Configurations
+            vector_store_configurations: Vector Store Configurations
 
     form:
         platform_configuration:
@@ -46,14 +49,31 @@ guiziweb_sylius_ai_platform:
         agent_tool:
             enabled: Enabled
 
+        vector_store_configuration:
+            channel: Channel
+            code: Code
+            name: Name
+            enabled: Enabled
+            platform_configuration: Platform Configuration
+            select_platform: Select a platform
+            select_platform_first: Please select a platform first
+            model: Model
+            select_model: Select a model
+            distance_metric: Distance Metric
+            select_distance_metric: Select a distance metric
+
     ui:
         platform_configurations: Platform Configurations
         platform_configuration: Platform Configuration
         agent_configurations: Agent Configurations
         agent_configuration: Agent Configuration
+        vector_store_configurations: Vector Store Configurations
+        vector_store_configuration: Vector Store Configuration
         agent: Agent
         channel: Channel
         code: Code
         name: Name
         model: Model
         provider: Provider
+        yes: Yes
+        no: No

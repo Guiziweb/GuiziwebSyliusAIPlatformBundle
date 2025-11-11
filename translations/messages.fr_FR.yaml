@@ -11,6 +11,8 @@ guiziweb:
         platform_configuration: Configuration de plateforme
         agent_configurations: Configurations des agents
         agent_configuration: Configuration d'agent
+        vector_store_configurations: Configurations des magasins de vecteurs
+        vector_store_configuration: Configuration de magasin de vecteurs
         agent: Agent
         channel: Canal
         enabled: Activé
@@ -20,6 +22,7 @@ guiziweb_sylius_ai_platform:
         admin:
             platform_configurations: Configurations des plateformes
             agent_configurations: Configurations des agents
+            vector_store_configurations: Configurations des magasins de vecteurs
 
     form:
         platform_configuration:
@@ -46,13 +49,31 @@ guiziweb_sylius_ai_platform:
         agent_tool:
             enabled: Activé
 
+        vector_store_configuration:
+            channel: Canal
+            code: Code
+            name: Nom
+            enabled: Activé
+            platform_configuration: Configuration de plateforme
+            select_platform: Sélectionner une plateforme
+            select_platform_first: Veuillez d'abord sélectionner une plateforme
+            model: Modèle
+            select_model: Sélectionner un modèle
+            distance_metric: Métrique de distance
+            select_distance_metric: Sélectionner une métrique de distance
+
     ui:
         platform_configurations: Configurations des plateformes
         platform_configuration: Configuration de plateforme
         agent_configurations: Configurations des agents
         agent_configuration: Configuration d'agent
+        vector_store_configurations: Configurations des magasins de vecteurs
+        vector_store_configuration: Configuration de magasin de vecteurs
+        agent: Agent
         channel: Canal
         code: Code
         name: Nom
         model: Modèle
         provider: Fournisseur
+        yes: Oui
+        no: Non
