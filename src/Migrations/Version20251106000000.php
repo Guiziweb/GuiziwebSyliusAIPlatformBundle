@@ -26,35 +26,67 @@ final class Version20251106000000 extends AbstractMigration
         );
 
         // Platform Configuration table
-        $this->addSql('CREATE TABLE guiziweb_ai_platform_configuration (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(100) NOT NULL, name VARCHAR(255) NOT NULL, enabled TINYINT(1) NOT NULL, provider VARCHAR(50) NOT NULL, apiKey VARCHAR(255) DEFAULT NULL, settings JSON DEFAULT NULL, UNIQUE INDEX UNIQ_380D258677153098 (code), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $platformTable = $schema->createTable('guiziweb_ai_platform_configuration');
+        $platformTable->addColumn('id', 'integer', ['autoincrement' => true]);
+        $platformTable->addColumn('code', 'string', ['length' => 100]);
+        $platformTable->addColumn('name', 'string', ['length' => 255]);
+        $platformTable->addColumn('enabled', 'boolean');
+        $platformTable->addColumn('provider', 'string', ['length' => 50]);
+        $platformTable->addColumn('apiKey', 'string', ['length' => 255, 'notnull' => false]);
+        $platformTable->addColumn('settings', 'json', ['notnull' => false]);
+        $platformTable->setPrimaryKey(['id']);
+        $platformTable->addUniqueIndex(['code'], 'UNIQ_380D258677153098');
 
         // Agent Configuration table
-        $this->addSql('CREATE TABLE guiziweb_ai_agent_configuration (id INT AUTO_INCREMENT NOT NULL, platform_configuration_id INT NOT NULL, channel_id INT NOT NULL, code VARCHAR(100) NOT NULL, name VARCHAR(255) NOT NULL, enabled TINYINT(1) NOT NULL, model VARCHAR(100) DEFAULT NULL, systemPrompt LONGTEXT DEFAULT NULL, INDEX IDX_D5F8E5FF3F4929AD (platform_configuration_id), INDEX IDX_D5F8E5FF72F5A1AA (channel_id), UNIQUE INDEX UNIQ_D5F8E5FF77153098 (code), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $agentTable = $schema->createTable('guiziweb_ai_agent_configuration');
+        $agentTable->addColumn('id', 'integer', ['autoincrement' => true]);
+        $agentTable->addColumn('platform_configuration_id', 'integer');
+        $agentTable->addColumn('channel_id', 'integer');
+        $agentTable->addColumn('code', 'string', ['length' => 100]);
+        $agentTable->addColumn('name', 'string', ['length' => 255]);
+        $agentTable->addColumn('enabled', 'boolean');
+        $agentTable->addColumn('model', 'string', ['length' => 100, 'notnull' => false]);
+        $agentTable->addColumn('systemPrompt', 'text', ['notnull' => false]);
+        $agentTable->setPrimaryKey(['id']);
+        $agentTable->addIndex(['platform_configuration_id'], 'IDX_D5F8E5FF3F4929AD');
+        $agentTable->addIndex(['channel_id'], 'IDX_D5F8E5FF72F5A1AA');
+        $agentTable->addUniqueIndex(['code'], 'UNIQ_D5F8E5FF77153098');
+        $agentTable->addForeignKeyConstraint('guiziweb_ai_platform_configuration', ['platform_configuration_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_D5F8E5FF3F4929AD');
+        $agentTable->addForeignKeyConstraint('sylius_channel', ['channel_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_D5F8E5FF72F5A1AA');
 
         // Agent Tool table
-        $this->addSql('CREATE TABLE guiziweb_ai_agent_tool (id INT AUTO_INCREMENT NOT NULL, agent_configuration_id INT NOT NULL, toolName VARCHAR(255) NOT NULL, enabled TINYINT(1) NOT NULL, INDEX IDX_98474D06DD7CCC62 (agent_configuration_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $toolTable = $schema->createTable('guiziweb_ai_agent_tool');
+        $toolTable->addColumn('id', 'integer', ['autoincrement' => true]);
+        $toolTable->addColumn('agent_configuration_id', 'integer');
+        $toolTable->addColumn('toolName', 'string', ['length' => 255]);
+        $toolTable->addColumn('enabled', 'boolean');
+        $toolTable->setPrimaryKey(['id']);
+        $toolTable->addIndex(['agent_configuration_id'], 'IDX_98474D06DD7CCC62');
+        $toolTable->addForeignKeyConstraint('guiziweb_ai_agent_configuration', ['agent_configuration_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_98474D06DD7CCC62');
 
         // Vector Store Configuration table
-        $this->addSql('CREATE TABLE guiziweb_ai_vector_store_configuration (id INT AUTO_INCREMENT NOT NULL, channel_id INT NOT NULL, platform_configuration_id INT NOT NULL, code VARCHAR(100) NOT NULL, name VARCHAR(255) NOT NULL, enabled TINYINT(1) NOT NULL, model VARCHAR(100) NOT NULL, distance_metric VARCHAR(50) DEFAULT NULL, UNIQUE INDEX UNIQ_E21A6BCB77153098 (code), INDEX IDX_E21A6BCB72F5A1AA (channel_id), INDEX IDX_E21A6BCB3F4929AD (platform_configuration_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-
-        // Foreign keys
-        $this->addSql('ALTER TABLE guiziweb_ai_agent_configuration ADD CONSTRAINT FK_D5F8E5FF3F4929AD FOREIGN KEY (platform_configuration_id) REFERENCES guiziweb_ai_platform_configuration (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE guiziweb_ai_agent_configuration ADD CONSTRAINT FK_D5F8E5FF72F5A1AA FOREIGN KEY (channel_id) REFERENCES sylius_channel (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE guiziweb_ai_agent_tool ADD CONSTRAINT FK_98474D06DD7CCC62 FOREIGN KEY (agent_configuration_id) REFERENCES guiziweb_ai_agent_configuration (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE guiziweb_ai_vector_store_configuration ADD CONSTRAINT FK_E21A6BCB72F5A1AA FOREIGN KEY (channel_id) REFERENCES sylius_channel (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE guiziweb_ai_vector_store_configuration ADD CONSTRAINT FK_E21A6BCB3F4929AD FOREIGN KEY (platform_configuration_id) REFERENCES guiziweb_ai_platform_configuration (id) ON DELETE CASCADE');
+        $vectorTable = $schema->createTable('guiziweb_ai_vector_store_configuration');
+        $vectorTable->addColumn('id', 'integer', ['autoincrement' => true]);
+        $vectorTable->addColumn('channel_id', 'integer');
+        $vectorTable->addColumn('platform_configuration_id', 'integer');
+        $vectorTable->addColumn('code', 'string', ['length' => 100]);
+        $vectorTable->addColumn('name', 'string', ['length' => 255]);
+        $vectorTable->addColumn('enabled', 'boolean');
+        $vectorTable->addColumn('model', 'string', ['length' => 100]);
+        $vectorTable->addColumn('distance_metric', 'string', ['length' => 50, 'notnull' => false]);
+        $vectorTable->setPrimaryKey(['id']);
+        $vectorTable->addUniqueIndex(['code'], 'UNIQ_E21A6BCB77153098');
+        $vectorTable->addIndex(['channel_id'], 'IDX_E21A6BCB72F5A1AA');
+        $vectorTable->addIndex(['platform_configuration_id'], 'IDX_E21A6BCB3F4929AD');
+        $vectorTable->addForeignKeyConstraint('sylius_channel', ['channel_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_E21A6BCB72F5A1AA');
+        $vectorTable->addForeignKeyConstraint('guiziweb_ai_platform_configuration', ['platform_configuration_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_E21A6BCB3F4929AD');
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE guiziweb_ai_agent_configuration DROP FOREIGN KEY FK_D5F8E5FF3F4929AD');
-        $this->addSql('ALTER TABLE guiziweb_ai_agent_configuration DROP FOREIGN KEY FK_D5F8E5FF72F5A1AA');
-        $this->addSql('ALTER TABLE guiziweb_ai_agent_tool DROP FOREIGN KEY FK_98474D06DD7CCC62');
-        $this->addSql('ALTER TABLE guiziweb_ai_vector_store_configuration DROP FOREIGN KEY FK_E21A6BCB72F5A1AA');
-        $this->addSql('ALTER TABLE guiziweb_ai_vector_store_configuration DROP FOREIGN KEY FK_E21A6BCB3F4929AD');
-        $this->addSql('DROP TABLE guiziweb_ai_vector_store_configuration');
-        $this->addSql('DROP TABLE guiziweb_ai_agent_tool');
-        $this->addSql('DROP TABLE guiziweb_ai_agent_configuration');
-        $this->addSql('DROP TABLE guiziweb_ai_platform_configuration');
+        $schema->dropTable('guiziweb_ai_vector_store_configuration');
+        $schema->dropTable('guiziweb_ai_agent_tool');
+        $schema->dropTable('guiziweb_ai_agent_configuration');
+        $schema->dropTable('guiziweb_ai_platform_configuration');
     }
 }
