@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Guiziweb\SyliusAIPlatformBundle\DependencyInjection;
 
+use Guiziweb\SyliusAIPlatformBundle\Tool\ToolInterface;
 use Sylius\Bundle\CoreBundle\DependencyInjection\PrependDoctrineMigrationsTrait;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\Config\FileLocator;
@@ -23,7 +24,7 @@ final class GuiziwebSyliusAIPlatformBundleExtension extends AbstractResourceExte
         $loader->load('services.yaml');
 
         // Auto-tag tools implementing ToolInterface
-        $container->registerForAutoconfiguration(\Guiziweb\SyliusAIPlatformBundle\Tool\ToolInterface::class)
+        $container->registerForAutoconfiguration(ToolInterface::class)
             ->addTag('guiziweb.ai_tool');
     }
 

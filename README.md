@@ -1,130 +1,77 @@
 # Guiziweb Sylius AI Platform Bundle
 
-A Sylius admin interface for managing [Symfony AI Platform](https://github.com/symfony-ai/symfony-ai) configurations. This bundle provides the back-office (BO) layer for Sylius e-commerce applications to configure AI platforms and agents.
+![Build](https://github.com/Guiziweb/GuiziwebSyliusAIPlatformBundle/workflows/CI/badge.svg)
+![Packagist Version](https://img.shields.io/packagist/v/guiziweb/sylius-ai-platform-bundle)
+![PHP](https://img.shields.io/packagist/php-v/guiziweb/sylius-ai-platform-bundle)
+![License](https://img.shields.io/github/license/Guiziweb/GuiziwebSyliusAIPlatformBundle)
+![Status](https://img.shields.io/badge/status-complete-green)
 
-## Overview
+Sylius admin bundle providing a complete back-office interface for Symfony AI Platform.
 
-This plugin is built on top of **Symfony AI Platform** and provides a user-friendly Sylius admin interface for managing AI configurations. It does not implement AI functionality itself - it simply provides the administrative layer to:
+## Description
 
-- Store and manage AI platform credentials (API keys, provider settings)
-- Configure AI agents with specific models, prompts, and tools
-- Assign agents to Sylius channels
+The Guiziweb Sylius AI Platform Bundle provides a centralized administration interface for managing AI configurations in your Sylius store. It serves as the foundation for the Guiziweb AI ecosystem, handling API keys, agent configurations, vector store setups, and model selection across all channels.
 
-The actual AI capabilities are provided by Symfony AI Platform, which handles the communication with AI providers (OpenAI, Anthropic, etc.).
+This bundle acts as the single source of truth for AI configuration - other plugins in the ecosystem reference its configurations rather than storing their own credentials.
+
+Part of the [Guiziweb Sylius AI Ecosystem](https://guiziweb.github.io).
 
 ## Features
 
-### Platform Configuration Management
-- Centralized AI platform credentials and settings
-- Support for multiple AI providers (OpenAI, Anthropic, Mistral, Gemini, Ollama, and more)
-- Multiple configurations per provider (e.g., separate dev/prod API keys)
-- Enable/disable platforms without deleting configurations
-
-### Agent Configuration Management
-- Channel-specific agent configurations
-- Custom system prompts per agent
-- Model selection per agent
-- Configurable tool assignments
-- Enable/disable agents per channel
-
-### Supported AI Providers
-
-This bundle provides admin interfaces for all AI providers supported by **Symfony AI Platform**, including:
-
-- **OpenAI** (GPT-4, GPT-3.5)
-- **Anthropic** (Claude)
-- **Mistral AI**
-- **Google Gemini**
-- **Ollama** (local models)
-- **Azure OpenAI**
-- **Cerebras**
-- **DeepSeek**
-- **LM Studio** (local)
-- And many more...
-
-The actual communication with these providers is handled by Symfony AI Platform.
+- **Platform Configuration Management**: Centralized AI platform credentials and settings
+- **Multi-Provider Support**: OpenAI, Anthropic, Mistral, Gemini, Ollama, Azure OpenAI, Cerebras, DeepSeek, LM Studio, and more (23+ providers)
+- **Multiple Configurations Per Provider**: Separate dev/prod API keys
+- **Agent Configuration Management**: Channel-specific agent configurations with custom prompts
+- **Model Selection Per Agent**: Dynamic model loading based on platform
+- **Tool Management**: Configurable tool assignments per agent
+- **Multi-Channel Support**: Different AI configurations per Sylius sales channel
+- **Enable/Disable Controls**: Activate/deactivate platforms and agents without deletion
 
 ## Requirements
 
-- PHP 8.2 or higher
-- Sylius 2.0 or higher
-- Symfony 7.3 or higher
-- **Symfony AI Platform** (installed automatically as a dependency)
+| Dependency | Version | Notes |
+| ---------- | ------- | ----- |
+| PHP | 8.2+ | |
+| Sylius | 2.0+ | |
+| Symfony | 7.3+ | |
+| symfony/ai-platform | @dev | Core AI platform |
+| symfony/ai-agent | @dev | Agent and tools |
+| symfony/ai-store | @dev | Vector stores |
 
 ## Installation
 
-### Quick Installation (Recommended)
+1. **Add Guiziweb Flex recipes endpoint** to your `composer.json`:
 
-The bundle uses **Symfony Flex** for automatic configuration:
+   ```json
+   {
+       "extra": {
+           "symfony": {
+               "allow-contrib": true,
+               "endpoint": [
+                   "https://api.github.com/repos/Guiziweb/SyliusRecipes/contents/index.json?ref=flex/main",
+                   "https://api.github.com/repos/Sylius/SyliusRecipes/contents/index.json?ref=flex/main",
+                   "flex://defaults"
+               ]
+           }
+       }
+   }
+   ```
 
-```bash
-composer require guiziweb/sylius-ai-platform-bundle
-```
+   **Note:** Set `"minimum-stability": "dev"` and `"prefer-stable": true` until stable release.
 
-This will automatically:
-- Register the bundle in `config/bundles.php`
-- Create configuration file in `config/packages/guiziweb_sylius_ai_platform.yaml`
-- Create routes file in `config/routes/guiziweb_sylius_ai_platform.yaml`
+2. **Require the package via Composer:**
 
-### Configuration Requirements
-
-To enable Symfony Flex recipes from this repository, add the custom recipe endpoint to your `composer.json`:
-
-```json
-{
-    "extra": {
-        "symfony": {
-            "allow-contrib": true,
-            "endpoint": [
-                "https://api.github.com/repos/Guiziweb/SyliusRecipes/contents/index.json?ref=flex/main",
-                "https://api.github.com/repos/Sylius/SyliusRecipes/contents/index.json?ref=flex/main",
-                "flex://defaults"
-            ]
-        }
-    }
-}
-```
-
-**Note:** You also need to set `"minimum-stability": "dev"` and `"prefer-stable": true` in your `composer.json` until a stable release is tagged.
-
-### Post-Installation
-
-After installation, run the database migrations:
-
-```bash
-php bin/console doctrine:migrations:migrate -n
-```
-
-### Manual Installation (Alternative)
-
-If you prefer manual installation or are setting up a Sylius plugin test application:
-
-1. **Install via Composer:**
    ```bash
-   composer require guiziweb/sylius-ai-platform-bundle:dev-main
+   composer require guiziweb/sylius-ai-platform-bundle
    ```
 
-2. **Enable the bundle** in `config/bundles.php`:
-   ```php
-   return [
-       // ... other bundles
-       Guiziweb\SyliusAIPlatformBundle\GuiziwebSyliusAIPlatformBundle::class => ['all' => true],
-   ];
-   ```
+   The Symfony Flex recipe will automatically:
+   - Register the bundle in `config/bundles.php`
+   - Create configuration file in `config/packages/guiziweb_sylius_ai_platform.yaml`
+   - Create routes file in `config/routes/guiziweb_sylius_ai_platform.yaml`
 
-3. **Import routes** in `config/routes.yaml`:
-   ```yaml
-   guiziweb_sylius_ai_platform:
-       resource: "@GuiziwebSyliusAIPlatformBundle/config/routes.yaml"
-   ```
+3. **Run database migrations:**
 
-4. **Import configuration** - create `config/packages/guiziweb_sylius_ai_platform.yaml`:
-   ```yaml
-   imports:
-       - { resource: "@GuiziwebSyliusAIPlatformBundle/config/config.yaml" }
-   ```
-
-5. **Run migrations:**
    ```bash
    php bin/console doctrine:migrations:migrate -n
    ```
@@ -133,27 +80,29 @@ If you prefer manual installation or are setting up a Sylius plugin test applica
 
 ### Platform Configuration
 
-Platform configurations are global and not tied to specific channels. This allows sharing API keys across multiple agents and channels.
+Platform configurations are global and not tied to specific channels.
 
 **Fields:**
+
 - **Code**: Unique identifier (e.g., `openai_prod`, `claude_main`)
-- **Name**: Human-readable name (e.g., "OpenAI Production", "Claude Main")
-- **Provider**: AI platform provider (OpenAI, Anthropic, etc.)
+- **Name**: Human-readable name
+- **Provider**: AI platform provider
 - **API Key**: Authentication credentials
 - **Enabled**: Activate/deactivate the platform
 
 ### Agent Configuration
 
-Agent configurations are channel-specific, allowing different AI behaviors per sales channel.
+Agent configurations are channel-specific.
 
 **Fields:**
+
 - **Code**: Unique identifier
 - **Name**: Agent name
 - **Channel**: Sylius channel assignment
 - **Platform Configuration**: Reference to platform credentials
 - **Model**: Specific model to use (e.g., `gpt-4`, `claude-3-sonnet`)
 - **System Prompt**: Instructions defining agent behavior
-- **Tools**: Assignable capabilities (extensible via plugins)
+- **Tools**: Assignable capabilities
 - **Enabled**: Activate/deactivate the agent
 
 ## Usage
@@ -166,7 +115,7 @@ Agent configurations are channel-specific, allowing different AI behaviors per s
    - Code: `openai_prod`
    - Name: `OpenAI Production`
    - Provider: Select `OpenAI`
-   - API Key: Enter your OpenAI API key
+   - API Key: Enter your API key
 4. Save
 
 ### Creating an Agent Configuration
@@ -182,44 +131,9 @@ Agent configurations are channel-specific, allowing different AI behaviors per s
    - System Prompt: Define the agent's behavior
 4. Save
 
-## Architecture
-
-This bundle provides the **back-office layer** only. It stores configuration in the database and provides admin CRUD interfaces. The actual AI functionality is delegated to **Symfony AI Platform**.
-
-### Entities
-
-**PlatformConfiguration**
-- Stores AI platform credentials (API keys, provider selection)
-- Global scope (no channel binding)
-- Supports multiple instances per provider (e.g., separate dev/prod keys)
-
-**AgentConfiguration**
-- Stores AI agent configuration (model, system prompt, tools)
-- Channel-specific (allows different agents per Sylius channel)
-- References a PlatformConfiguration for credentials
-- Can have multiple tools assigned
-
-**AgentTool**
-- Represents an assignable capability from Symfony AI Platform
-- Can be enabled/disabled per agent
-- Extensible through Symfony service tagging
-
-### Relationship with Symfony AI Platform
-
-This bundle acts as a **configuration management layer** for Symfony AI Platform:
-
-1. **Admin stores configuration** - Users configure platforms and agents via Sylius admin
-2. **Bundle stores in database** - Configurations are persisted in Doctrine entities
-3. **Symfony AI Platform executes** - Your application code uses Symfony AI Platform with these configurations
-4. **Bundle provides the glue** - Factories and services bridge Sylius configuration to Symfony AI Platform instances
-
-## Extension Points
-
 ### Adding Custom Tools
 
-Tools are provided by **Symfony AI Platform** using the `#[AsTool]` attribute. This bundle simply exposes them in the admin interface for assignment to agents.
-
-Create a tool using Symfony AI Platform conventions:
+Tools are provided by Symfony AI Platform using the `#[AsTool]` attribute:
 
 ```php
 namespace App\AI\Tool;
@@ -232,19 +146,11 @@ class ProductSearchTool
     public function search(string $query): array
     {
         // Your implementation
-        // This tool will be automatically discovered by Symfony AI Platform
-        // and made available in this bundle's admin interface
     }
 }
 ```
 
-### Custom Providers
-
-AI providers are handled by **Symfony AI Platform**. This bundle provides an `AiProvider` enum listing available providers for the admin interface. If Symfony AI Platform adds new providers, you can extend the enum accordingly.
-
-## Development
-
-### Running Tests
+## Testing
 
 ```bash
 # PHPUnit
@@ -253,36 +159,28 @@ vendor/bin/phpunit
 # Behat
 vendor/bin/behat
 
-# Code Quality
+# Static analysis
 vendor/bin/phpstan analyse
+
+# Coding standards
 vendor/bin/ecs check
 ```
 
-### Docker Environment
+## Contributing
 
-```bash
-# Initialize
-make init
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) before submitting a Pull Request.
 
-# Database setup
-make database-init
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-# Load fixtures
-make load-fixtures
+## Related Plugins
 
-# Run tests
-make phpunit
-make behat
-```
+- [Guiziweb Sylius Shopping Assistant Plugin](https://github.com/Guiziweb/GuiziwebSyliusShoppingAssistantPlugin) - AI-powered chat widget for Sylius storefronts
+- [Guiziweb Sylius Semantic Search Plugin](https://github.com/Guiziweb/GuiziwebSyliusSemanticSearchPlugin) - Vector-based semantic search for Sylius products
 
 ## License
 
-This bundle is released under the MIT License. See the bundled LICENSE file for details.
-
-## Credits
-
-Developed by Guiziweb for the Sylius e-commerce platform.
-
-## Support
-
-For issues and feature requests, please use the GitHub issue tracker.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

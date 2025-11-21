@@ -51,6 +51,12 @@ jobs:
                     node-version: "${{ matrix.node }}"
 
             -
+                name: Lint Markdown
+                uses: DavidAnson/markdownlint-cli2-action@v19
+                with:
+                    globs: 'README.md'
+
+            -
                 name: Shutdown default MySQL
                 run: sudo service mysql stop
 
